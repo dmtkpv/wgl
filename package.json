@@ -1,0 +1,12 @@
+{
+  "name": "@dmtkpv/wgl",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "serve": "vite serve",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "vite": "^4.3.1"
+  }
+}
