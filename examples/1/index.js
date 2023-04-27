@@ -23,9 +23,8 @@ const HOLE_SIZE = 512;
 
 const canvas = document.querySelector('canvas');
 const gl = canvas.getContext('webgl');
-const grid = new Program(gl, gridVert, gridFrag);
-const text = new Program(gl, textVert, textFrag);
-
+// const grid = new Program(gl, gridVert, gridFrag);
+const text = new Program(gl, textVert, textFrag, new Square(HOLE_SIZE));
 
 
 // ---------------
@@ -46,15 +45,19 @@ const image = await new Promise(resolve => {
 // Points
 // ---------------
 
-const gridPoints = new Grid(GRID_SIZE, GRID_CELL);
-const textPoints = new Square(HOLE_SIZE);
-const textUv = textPoints.map((coord, i) => .5 + coord / HOLE_SIZE);
+// const gridPoints = new Grid(GRID_SIZE, GRID_CELL);
+// console.log(gridPoints)
+// const textPoints = new Square(HOLE_SIZE);
+// const textUv = textPoints.map((coord, i) => .5 + coord / HOLE_SIZE);
 
-
-
-grid.attr('pos', gridPoints, 2);
-text.attr('pos', textPoints, 2);
-text.attr('uv', textUv, 2);
+// grid.attr({
+//     pos: { data: [], size: 2 },
+//     tex: { data: [], size: 2 },
+// })
+//
+// grid.attr2f('pos', gridPoints, 2);
+// text.attr('pos', textPoints, 2);
+// text.attr('uv', textUv, 2);
 
 
 
@@ -95,8 +98,8 @@ function resize () {
 // Run
 // ---------------
 
-window.addEventListener('resize', resize);
-resize();
-render();
+// window.addEventListener('resize', resize);
+// resize();
+// render();
 
 
