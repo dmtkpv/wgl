@@ -1,4 +1,5 @@
-import { Program, createGridPoints, createSquarePoints, createTexture } from '../../src'
+import { Program } from '@dmtkpv/wgl'
+import { Grid, Square } from '@dmtkpv/wgl/geometries'
 import gridVert from './grid.vert?raw'
 import gridFrag from './grid.frag?raw'
 import textVert from './text.vert?raw'
@@ -37,7 +38,7 @@ const image = await new Promise(resolve => {
     image.onload = () => resolve(image);
 })
 
-const texture = createTexture(gl, image);
+// const texture = createTexture(gl, image);
 
 
 
@@ -45,13 +46,16 @@ const texture = createTexture(gl, image);
 // Points
 // ---------------
 
-const gridPoints = createGridPoints(GRID_SIZE, GRID_CELL);
-const textPoints = createSquarePoints(HOLE_SIZE);
-const textUv = textPoints.map((coord, i) => .5 + coord / HOLE_SIZE)
+const gridPoints = new Grid(GRID_SIZE, GRID_CELL);
+const textPoints = new Square(HOLE_SIZE);
+const textUv = textPoints.map((coord, i) => .5 + coord / HOLE_SIZE);
+
+
 
 grid.attr('pos', gridPoints, 2);
 text.attr('pos', textPoints, 2);
 text.attr('uv', textUv, 2);
+
 
 
 

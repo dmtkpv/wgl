@@ -3,10 +3,22 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "serve": "vite serve",
-    "build": "vite build"
+    "serve": "pnpm -C examples run serve"
   },
-  "devDependencies": {
-    "vite": "^4.3.1"
-  }
+  "exports": {
+    ".": "./lib/constructors.js",
+    "./utils": "./lib/utils.js",
+    "./geometries": "./lib/geometries.js"
+  },
+  "description": "WebGL Utilities",
+  "repository": "github:dmtkpv/wgl",
+  "author": "Dmitriy Karpov",
+  "license": "MIT",
+  "keywords": [
+    "webgl",
+    "utilities"
+  ],
+  "files": [
+    "lib"
+  ]
 }
