@@ -1,5 +1,6 @@
 import { Program } from '@dmtkpv/wgl'
-import { Grid, Square } from '@dmtkpv/wgl/geometries'
+import { Grid2D, Square2D, SquareUV } from '@dmtkpv/wgl/geometries'
+import { createTexture } from '@dmtkpv/wgl/utils'
 import gridVert from './grid.vert?raw'
 import gridFrag from './grid.frag?raw'
 import textVert from './text.vert?raw'
@@ -23,8 +24,20 @@ const HOLE_SIZE = 512;
 
 const canvas = document.querySelector('canvas');
 const gl = canvas.getContext('webgl');
-// const grid = new Program(gl, gridVert, gridFrag);
-const text = new Program(gl, textVert, textFrag, new Square(HOLE_SIZE));
+const grid = new Program(gl, gridVert, gridFrag);
+const text = new Program(gl, textVert, textFrag);
+
+
+
+// ---------------
+// Attributes
+// ---------------
+
+grid.attr('pos', new Grid2D(GRID_SIZE, GRID_CELL, GRID_SIZE / 4), 2);
+text.attr('pos', new Square2D(HOLE_SIZE), 2);
+text.attr('tex', new SquareUV(1), 2);
+
+
 
 
 // ---------------
@@ -37,27 +50,7 @@ const image = await new Promise(resolve => {
     image.onload = () => resolve(image);
 })
 
-// const texture = createTexture(gl, image);
-
-
-
-// ---------------
-// Points
-// ---------------
-
-// const gridPoints = new Grid(GRID_SIZE, GRID_CELL);
-// console.log(gridPoints)
-// const textPoints = new Square(HOLE_SIZE);
-// const textUv = textPoints.map((coord, i) => .5 + coord / HOLE_SIZE);
-
-// grid.attr({
-//     pos: { data: [], size: 2 },
-//     tex: { data: [], size: 2 },
-// })
-//
-// grid.attr2f('pos', gridPoints, 2);
-// text.attr('pos', textPoints, 2);
-// text.attr('uv', textUv, 2);
+const texture = createTexture(gl, image);
 
 
 
@@ -67,9 +60,9 @@ const image = await new Promise(resolve => {
 // ---------------
 
 function render () {
-    grid.draw('pos', gl.LINE_STRIP);
-    // text.draw('pos', gl.TRIANGLES);
-    // requestAnimationFrame(render);
+    grid.draw(gl.LINE_STRIP);
+    text.draw(gl.TRIANGLES);
+    requestAnimationFrame(render);
 }
 
 
@@ -90,6 +83,7 @@ function resize () {
     grid.uniform('scale', sx * sg, sy * sg);
     text.uniform('scale', sx, sy);
     gl.viewport(0, 0, canvas.width, canvas.height);
+
 }
 
 
@@ -98,8 +92,8 @@ function resize () {
 // Run
 // ---------------
 
-// window.addEventListener('resize', resize);
-// resize();
-// render();
+window.addEventListener('resize', resize);
+resize();
+render();
 
 

@@ -5,7 +5,7 @@ varying vec2 v_pos;
 void main() {
 
     float n = 3.0;
-    float r = 256.;
+    float r = 0.;
     vec2 point = a_pos.xy;
 
     float l = length(point);
