@@ -13,7 +13,7 @@ import textFrag from './text.frag?raw'
 // ---------------
 
 const GRID_SIZE = 1920;
-const GRID_CELL = 32;
+const GRID_CELL = 36;
 const HOLE_SIZE = 512;
 
 
@@ -34,9 +34,8 @@ const text = new Program(gl, textVert, textFrag);
 // ---------------
 
 grid.attr('pos', new Grid2D(GRID_SIZE, GRID_CELL, GRID_SIZE / 4), 2);
-text.attr('pos', new Square2D(HOLE_SIZE), 2);
-text.attr('tex', new SquareUV(1), 2);
-
+text.attr('pos', new Square2D(HOLE_SIZE, HOLE_SIZE / 32), 2);
+text.attr('tex', new SquareUV(1, HOLE_SIZE / 32), 2);
 
 
 
@@ -60,8 +59,9 @@ const texture = createTexture(gl, image);
 // ---------------
 
 function render () {
-    grid.draw(gl.LINE_STRIP);
     text.draw(gl.TRIANGLES);
+    grid.draw(gl.LINE_STRIP);
+
     requestAnimationFrame(render);
 }
 
