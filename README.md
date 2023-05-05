@@ -13,7 +13,7 @@ Fragment shader
 precision mediump float;
 
 void main() {
-    gl_FragColor = texture2D(u_image, v_tex);
+    gl_FragColor = vec4(0,0,0,1);
 }
 ```
 
