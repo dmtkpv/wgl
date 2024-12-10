@@ -1,4 +1,14 @@
-Vertex shader
+# @dmtkpv/wgl
+A tiny WebGL library
+
+## Installation
+```shell
+npm i @dmtkpv/wgl
+```
+
+## Usage
+
+Create vertex shader
 ```glsl
 attribute vec2 a_position;
 uniform float u_scale;
@@ -8,7 +18,7 @@ void main() {
 }
 ```
 
-Fragment shader
+Create fragment shader
 ```glsl
 precision mediump float;
 
@@ -17,7 +27,7 @@ void main() {
 }
 ```
 
-Initialization
+Create program
 ```js
 import { Program } from '@dmtkpv/wgl'
 import vert from './shader.vert?raw'
@@ -27,7 +37,12 @@ const canvas = document.querySelector('canvas');
 const gl = canvas.getContext('webgl');
 const prog = new Program(gl, vert, frag);
 
+// pass vertices
 prog.attr('position', [-1, 1, -1, -1, 1, -1], 2);
+
+// pass uniforms
 prog.uniform('scale', 0.5);
+
+// draw
 prog.draw(gl.TRIANGLES);
 ```
